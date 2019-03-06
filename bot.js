@@ -8,30 +8,20 @@ client.on('ready', () => {
 
 
 
-
-var prefix = "!";
-client.on('message',async message => {
-  if(message.author.bot || message.channel.type === 'dm') return;
-  if(!message.content.startsWith(prefix)) return;
-  let cmd = message.content.split(" ")[0].substring(prefix.length);
-  let args = message.content.split(" ").slice(1);
-  let devs = ["478291914106339332"];
-  let err = "▫";
-  
-  if(cmd === 'clear') {
-    if(!devs.includes(message.author.id)) return message.channel.send(`**${err} You are not one of the bot admins.**`);
-    let fetched = await message.channel.fetchMessages();
-    let filtered = await fetched.filter(r => r.author.id === client.user.id);
-    if(filtered.size <= 0) return message.channel.send(`**${err} There are no messages to delete.**`).then(m => m.delete(5000));
-    message.channel.bulkDelete(filtered)
-    .then(() => {
-      message.channel.send(`**${err} Successfully Deleted \`${filtered.size}\` messages.**`);
-    })
-    .catch(e => {
-      if(e) message.channel.send(`**${err} An error happend :: \`${e.message}\`**`);
-    });
+client.on('message', message => {  
+    if (message.author.bot) return;
+if (message.content.startsWith('!clear')) { //Codes
+    if(!message.channel.guild) return message.reply('⛔ | This Command For Servers Only!'); 
+        if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('⛔ | You dont have **MANAGE_MESSAGES** Permission!');
+        if(!message.guild.member(client.user).hasPermission('MANAGE_MESSAGES')) return message.channel.send('⛔ | I dont have **MANAGE_MESSAGES** Permission!');
+ let args = message.content.split(" ").slice(1)
+    let messagecount = parseInt(args);
+    if (args > 99) return message.reply("**🛑 || يجب ان يكون عدد المسح أقل من 100 .**").then(messages => messages.delete(5000))
+    if(!messagecount) args = '100';
+    message.channel.fetchMessages({limit: messagecount + 1}).then(messages => message.channel.bulkDelete(messages));
+    message.channel.send(`\`${args}\` : __عدد الرسائل التي تم مسحها __ `).then(messages => messages.delete(5000));
   }
-});
+  });
 
 
 client.on('message' , message => {
