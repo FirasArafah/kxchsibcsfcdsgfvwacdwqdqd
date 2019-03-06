@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const prefix = "!";
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setGame("#ENFELATEH..","https://www.twitch.tv/idk");
@@ -10,7 +10,7 @@ client.on('ready', () => {
 
 client.on('message' , message => {
   if(message.author.bot) return;
-  if(message.content.startsWith(prefix + "ping")) {
+  if(message.content.startsWith("!ping")) {
  message.channel.send('pong').then((msg) => {
 var PinG = `${Date.now() - msg.createdTimestamp}`
 var ApL = `${Math.round(client.ping)}`
