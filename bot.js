@@ -7,7 +7,6 @@ client.on('ready', () => {
 });
 
 
-const prefix ="#";
 
  client.on('message', message => {
  
