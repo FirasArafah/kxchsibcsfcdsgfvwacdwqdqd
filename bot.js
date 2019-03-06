@@ -7,6 +7,33 @@ client.on('ready', () => {
 });
 
 
+var prefix = "!" // البرفكس
+client.on("message", (message) => {
+    if (message.author.bot) return;
+    if (0 != message.content.indexOf(prefix)) return;
+    const [command, ...args] = message.content.slice(prefix.length).split(/ +/g);
+    if (command === "role") { // غير اسم الامر من هنا
+        let freeRole = message.guild.roles.find(role => role.name == "اسم الرول الي راح ياخذه من الامر");
+        if (!freeRole) return message.reply("Hey, this role seems to be deleted i can\'t find it");
+        if (message.member.roles.some(role => role.name == freeRole.name)) {
+            message.member.removeRole(freeRole).then(() => {
+                message.reply("the role removed !")
+            })
+            .catch(() => {
+                message.reply("something went wrong, i can\'t remove the role from you.")
+            });;
+        } else {
+            message.member.addRole(freeRole)
+                .then(() => {
+                    message.reply("you got it!")
+                })
+                .catch(() => {
+                    message.reply("something went wrong, i can\'t give you the role.")
+                });
+        }
+    }
+});
+
 
 client.on('message', message => {  
     if (message.author.bot) return;
