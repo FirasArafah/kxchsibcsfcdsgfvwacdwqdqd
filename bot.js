@@ -5,7 +5,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setGame("#ENFELATEH..","https://www.twitch.tv/idk");
 });
-
+var prefix = "#";
 client.on('message', function(message) {
     if (message.author.bot) return;
     if (message.author.id === client.user.id) return;
