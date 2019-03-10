@@ -41,5 +41,10 @@
     "youtube-info": "^1.2.0",
     "ytdl-core": "^0.21.1",
     "zalgolize": "^1.2.4"
+       "async": "^2.6.0",
+    "fs": "0.0.1-security",
+    "moment": "^2.20.1",
+    "ms": "^2.1.1",
+
   }
 }
