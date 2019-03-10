@@ -15,7 +15,7 @@ client.on('message', function(message) {
     var args = message.content.substring(prefix.length).split(' ');
 
     switch (args[0].toLocaleLowerCase()) {
-          case "#clear" :
+          case "clear" :
 if(!message.channel.guild) return
                                 if(message.member.hasPermissions(0x2000)){ if (!args[1]) {
         message.channel.fetchMessages()
@@ -49,25 +49,6 @@ break;
 }
 });
 
-
- client.on('message', message => {
-    if (message.content.startsWith("#stats")) {
-    message.channel.send({
-        embed: new Discord.RichEmbed()
-            .setColor('RANDOM')
-            .setTitle('Stats Bot / Info ')
-            .addField('``Uptime``', timeCon(process.uptime()), true)
-            .addField('``Ping Is``' , `${Date.now() - message.createdTimestamp}` + '``Ms``', true)
-            .addField('``RAM Usage``', `${(process.memoryUsage().rss / 1048576).toFixed()}MB`, true)
-            .addField('``Guild Count``', client.guilds.size, true)
-            .addField('``Bot In channel``' , `${client.channels.size}` , true)
-            .addField('``Users rout``' ,`${client.users.size}` , true)
-            .addField('``Name Bot Or tag``' , `${client.user.tag}` , true)
-            .addField('``Bot Id``' , `${client.user.id}` , true)
-            .setFooter('#En By Rn & Fr')
-    })
-}
-});
 
 
 
