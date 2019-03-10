@@ -6,49 +6,48 @@ client.on('ready', () => {
   client.user.setGame("#ENFELATEH..","https://www.twitch.tv/idk");
 });
 
-
-var prefix = "!" // البرفكس
-client.on("message", (message) => {
+bot.on('message', function(message) {
     if (message.author.bot) return;
-    if (0 != message.content.indexOf(prefix)) return;
-    const [command, ...args] = message.content.slice(prefix.length).split(/ +/g);
-    if (command === "role") { // غير اسم الامر من هنا
-        let freeRole = message.guild.roles.find(role => role.name == "اسم الرول الي راح ياخذه من الامر");
-        if (!freeRole) return message.reply("Hey, this role seems to be deleted i can\'t find it");
-        if (message.member.roles.some(role => role.name == freeRole.name)) {
-            message.member.removeRole(freeRole).then(() => {
-                message.reply("the role removed !")
-            })
-            .catch(() => {
-                message.reply("something went wrong, i can\'t remove the role from you.")
-            });;
-        } else {
-            message.member.addRole(freeRole)
-                .then(() => {
-                    message.reply("you got it!")
-                })
-                .catch(() => {
-                    message.reply("something went wrong, i can\'t give you the role.")
-                });
-        }
-    }
+    if (message.author.id === bot.user.id) return;
+    if (message.author.equals(bot.user)) return;
+    if (!message.content.startsWith(prefix)) return;
+
+    var args = message.content.substring(prefix.length).split(' ');
+
+    switch (args[0].toLocaleLowerCase()) {
+          case "#clear" :
+if(!message.channel.guild) return
+                                if(message.member.hasPermissions(0x2000)){ if (!args[1]) {
+        message.channel.fetchMessages()
+          .then(messages => {
+            message.channel.bulkDelete(messages);
+       var     messagesDeleted = messages.array().length;
+             var embed = new Discord.RichEmbed()
+             .setDescription('Message Deleted ' + messagesDeleted+ ':checkered_flag: ')
+             .setColor('RANDOM')
+            message.channel.sendEmbed(embed);
+          })
+                            } else {
+                            let messagecount = parseInt(args[1]);
+        message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
+                  let clear = new Discord.RichEmbed()
+
+                                                   .setColor('RANDOM')
+             .setDescription('Messages Deleted ' + args[1])
+             message.channel.sendEmbed(clear)
+                                                                                        message.delete(60000);
+               }
+                    } else {
+                        var manage = new Discord.RichEmbed()
+                        .setDescription('You Do Not Have Permission `MANAGE_MESSAGES :(')
+                        .setColor("RANDOM")
+                        message.channel.sendEmbed(manage)
+                        return;
+                    }
+break;
+
+}
 });
-
-
-client.on('message', message => {  
-    if (message.author.bot) return;
-if (message.content.startsWith('!clear')) { //Codes
-    if(!message.channel.guild) return message.reply('⛔ | This Command For Servers Only!'); 
-        if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('⛔ | You dont have **MANAGE_MESSAGES** Permission!');
-        if(!message.guild.member(client.user).hasPermission('MANAGE_MESSAGES')) return message.channel.send('⛔ | I dont have **MANAGE_MESSAGES** Permission!');
- let args = message.content.split(" ").slice(1)
-    let messagecount = parseInt(args);
-    if (args > 99) return message.reply("**🛑 || يجب ان يكون عدد المسح أقل من 100 .**").then(messages => messages.delete(5000))
-    if(!messagecount) args = '100';
-    message.channel.fetchMessages({limit: messagecount + 1}).then(messages => message.channel.bulkDelete(messages));
-    message.channel.send(`\`${args}\` : __عدد الرسائل التي تم مسحها __ `).then(messages => messages.delete(5000));
-  }
-  });
 
 
 client.on('message' , message => {
