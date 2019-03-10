@@ -6,10 +6,10 @@ client.on('ready', () => {
   client.user.setGame("#ENFELATEH..","https://www.twitch.tv/idk");
 });
 
-bot.on('message', function(message) {
+client.on('message', function(message) {
     if (message.author.bot) return;
-    if (message.author.id === bot.user.id) return;
-    if (message.author.equals(bot.user)) return;
+    if (message.author.id === client.user.id) return;
+    if (message.author.equals(client.user)) return;
     if (!message.content.startsWith(prefix)) return;
 
     var args = message.content.substring(prefix.length).split(' ');
@@ -50,6 +50,28 @@ break;
 });
 
 
+ client.on('message', message => {
+    if (message.content.startsWith("#stats")) {
+    message.channel.send({
+        embed: new Discord.RichEmbed()
+            .setColor('RANDOM')
+            .setTitle('Stats Bot / Info ')
+            .addField('``Uptime``', timeCon(process.uptime()), true)
+            .addField('``Ping Is``' , `${Date.now() - message.createdTimestamp}` + '``Ms``', true)
+            .addField('``RAM Usage``', `${(process.memoryUsage().rss / 1048576).toFixed()}MB`, true)
+            .addField('``Guild Count``', client.guilds.size, true)
+            .addField('``Bot In channel``' , `${client.channels.size}` , true)
+            .addField('``Users rout``' ,`${client.users.size}` , true)
+            .addField('``Name Bot Or tag``' , `${client.user.tag}` , true)
+            .addField('``Bot Id``' , `${client.user.id}` , true)
+            .setFooter('#En By Rn & Fr')
+    })
+}
+});
+
+
+
+
 client.on('message' , message => {
   if(message.author.bot) return;
   if(message.content.startsWith("!ping")) {
@@ -60,6 +82,41 @@ var ApL = `${Math.round(client.ping)}`
  })
   }  
  });
+
+
+client.on('message', message => {
+ if (message.content.startsWith("#id")) {
+var args = message.content.split(" ").slice(1);
+let user = message.mentions.users.first();
+var men = message.mentions.users.first();
+var heg;
+if(men) {
+  heg = men
+} else {
+  heg = message.author
+}
+var mentionned = message.mentions.members.first();
+var h;
+if(mentionned) {
+  h = mentionned
+} else {
+  h = message.member
+}
+     moment.locale('ar-TN');
+var id = new  Discord.RichEmbed()
+.setColor("RANDOM")
+.addField(': انضمامك لسيرفر قبل', `${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')} \n \`${moment(h.joinedAt).fromNow()}\``, true)
+.addField(': دخولك لديسكورد قبل', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm:ss')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
+.setThumbnail(message.author.avatarURL)
+.setFooter('#En');
+message.channel.send(id)
+}       });
+
+client.on('message', message => {
+  if (message.content === '#avatar') {
+    message.channel.sendMessage(message.author.avatarURL);
+  }
+});
 
 
 client.on('guildMemberAdd', member => {
